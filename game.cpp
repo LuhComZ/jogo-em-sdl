@@ -29,10 +29,7 @@ Game::Game(const char *title, int x, int y, int w, int h, bool fullscreen)
 				{
 					for (int y = 0; y <= 20; y++)
 					{
-						map->map[x][y] = {
-							0,
-							0,
-						};
+						map->changeTile(x, y, {0, 0});
 					}
 				}
 				// discord = new Discord(id do discord aqui);
@@ -127,6 +124,7 @@ void Game::handleEvents()
 void Game::draw()
 {
 	SDL_RenderClear(Game::renderer);
+	map->draw();
 	obj->draw();
 	SDL_GetWindowSize(window, &wa, &ha);
 	SDL_SetRenderDrawColor(Game::renderer, 0x00, 0x00, 0x00, 1);
