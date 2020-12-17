@@ -1,0 +1,18 @@
+#VSCODE / BIN
+a.exe
+/.vscode
+
+#DISCORD GAME SDK
+/discord
+discord_game_sdk.bundle
+discord_game_sdk.dll
+discord_game_sdk.dll.lib
+discord_game_sdk.so
+
+#SDL DLL
+libjpeg-9.dll
+libpng16-16.dll
+libtiff-5.dll
+libwebp-7.dll
+SDL2_image.dll
+zlib1.dll
