@@ -11,6 +11,8 @@ ObjectManager::~ObjectManager()
 	{
 		delete obj;
 	}
+
+	objects.clear();
 };
 
 void ObjectManager::draw()
