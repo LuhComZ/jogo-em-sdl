@@ -10,8 +10,7 @@ public:
 	void update();
 
 	void changePresence(const char* state, const char* details);
-	void changePresenceLargeImage(const char* largeImage, const char* largeText);
-	void changePresenceSmallImage(const char* smallImage, const char* smallText);
+	void changePresenceAssets(const char* largeImage, const char* largeText,const char* smallImage, const char* smallText);
 	void changeParty(const char* id, int size, int max);
 
 	void updatePresence();

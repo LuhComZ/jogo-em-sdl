@@ -14,7 +14,7 @@ Discord::~Discord()
 
 void Discord::init()
 {
-	discord::Result result = discord::Core::Create(this->id, DiscordCreateFlags_NoRequireDiscord, &core);
+	auto result = discord::Core::Create(this->id, DiscordCreateFlags_NoRequireDiscord, &core);
 
 	if (result == discord::Result::Ok)
 	{
@@ -50,30 +50,22 @@ void Discord::changeParty(const char *id, int size, int max)
 {
 	if (this->connected)
 	{
-		auto party = this->activity.GetParty();
-		party.SetId(id);
-		party.GetSize().SetCurrentSize(size);
-		party.GetSize().SetMaxSize(max);
+		auto party = &this->activity.GetParty();
+		party->SetId(id);
+		party->GetSize().SetCurrentSize(size);
+		party->GetSize().SetMaxSize(max);
 	}
 }
 
-void Discord::changePresenceLargeImage(const char *largeImage, const char *largeText)
+void Discord::changePresenceAssets(const char *largeImage, const char *largeText, const char *SmallImage, const char *SmallText)
 {
 	if (this->connected)
 	{
 		auto assets = &this->activity.GetAssets();
-		assets->SetLargeImage(largeImage);
-		assets->SetLargeText(largeText);
-	}
-}
-
-void Discord::changePresenceSmallImage(const char *SmallImage, const char *SmallText)
-{
-	if (this->connected)
-	{
-		auto assets = &this->activity.GetAssets();
-		assets->SetSmallImage(SmallImage);
-		assets->SetSmallText(SmallText);
+		assets->SetLargeImage(largeImage != NULL ? largeImage : "");
+		assets->SetLargeText(largeText != NULL ? largeText : "");
+		assets->SetSmallImage(SmallImage != NULL ? SmallImage : "");
+		assets->SetSmallText(SmallText != NULL ? SmallText : "");
 	}
 }
 
