@@ -23,8 +23,8 @@ Game::Game(const char *title, int x, int y, int w, int h, bool fullscreen)
 				IMG_Init(IMG_INIT_PNG);
 				SDL_SetRenderDrawColor(Game::renderer, 0xFF, 0xFF, 0xFF, 1);
 				running = true;
-				obj = new GameObject("./assets/g.png");
-				map = new Map("./assets/t.png");
+				obj = new GameObject("../assets/g.png");
+				map = new Map("../assets/t.png");
 				for (int x = 0; x <= 25; x++)
 				{
 					for (int y = 0; y <= 20; y++)

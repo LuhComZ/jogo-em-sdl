@@ -7,7 +7,13 @@ Map::Map(const char *path)
 	if (surface)
 	{
 		texture = SDL_CreateTextureFromSurface(Game::renderer, surface);
+		SDL_FreeSurface(surface);
 	}
+}
+
+Map::~Map()
+{
+	SDL_DestroyTexture(texture);
 }
 
 void Map::draw()
