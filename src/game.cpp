@@ -1,11 +1,9 @@
 #include "GameObject.h"
 #include "game.h"
 #include "map.h"
-bool presence = true;
 
 int wa, ha;
-GameObject *obj = nullptr;
-Map *map = nullptr;
+GameObject *obj;
 SDL_Renderer *Game::renderer = nullptr;
 
 Game::Game(const char *title, int x, int y, int w, int h, bool fullscreen)
@@ -24,15 +22,6 @@ Game::Game(const char *title, int x, int y, int w, int h, bool fullscreen)
 				SDL_SetRenderDrawColor(Game::renderer, 0xFF, 0xFF, 0xFF, 1);
 				running = true;
 				obj = new GameObject("../assets/g.png");
-				map = new Map("../assets/t.png");
-				for (int x = 0; x <= 25; x++)
-				{
-					for (int y = 0; y <= 20; y++)
-					{
-						map->changeTile(x, y, {0, 0});
-					}
-				}
-				// discord = new Discord(id do discord aqui);
 			};
 		};
 	}
@@ -40,14 +29,14 @@ Game::Game(const char *title, int x, int y, int w, int h, bool fullscreen)
 
 Game::~Game()
 {
-	// delete discord;
 	SDL_DestroyRenderer(Game::renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 	IMG_Quit();
+	delete obj;
 };
 
-bool Game::isRunning()
+bool Game::isRunning() const
 {
 	return running;
 };
@@ -124,7 +113,7 @@ void Game::handleEvents()
 void Game::draw()
 {
 	SDL_RenderClear(Game::renderer);
-	map->draw();
+	// map->draw();
 	obj->draw();
 	SDL_GetWindowSize(window, &wa, &ha);
 	SDL_SetRenderDrawColor(Game::renderer, 0x00, 0x00, 0x00, 1);

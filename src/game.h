@@ -12,7 +12,7 @@ public:
 	void draw();
 	void handleEvents();
 
-	bool isRunning();
+	bool isRunning() const;
 
 	static SDL_Renderer *renderer;
 

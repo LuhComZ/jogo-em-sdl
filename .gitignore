@@ -1,6 +1,9 @@
-#VSCODE / BIN / DLLS
+# VSCODE / BIN / DLLS
 /bin/*
 /.vscode
 
-#DISCORD GAME SDK
+# DISCORD GAME SDK
 /src/discord
+
+# OBJ FILES
+/obj/*.o

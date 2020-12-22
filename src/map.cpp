@@ -35,7 +35,7 @@ void Map::draw()
 			dest.w = 64;
 			dest.h = 64;
 
-			SDL_RenderCopy(Game::renderer, texture, &src, &dest);
+			std::cout << SDL_RenderCopy(Game::renderer, texture, &src, &dest) << std::endl;
 		}
 	}
 }
