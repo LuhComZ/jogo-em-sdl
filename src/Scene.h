@@ -1,3 +1,4 @@
+#include "sdl.h"
 class ObjectManager;
 class Map;
 
@@ -9,6 +10,8 @@ public:
 
 	void update();
 	void draw();
+	virtual void handleEvents(SDL_Event event);
+
 private:
 	ObjectManager *manager;
 	Map* map;

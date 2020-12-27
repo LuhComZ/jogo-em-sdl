@@ -1,44 +1,41 @@
 #include "ObjectManager.h"
 #include "GameObject.h"
 
-ObjectManager::ObjectManager(){
+ObjectManager::ObjectManager()
+{
 
 };
 
 ObjectManager::~ObjectManager()
 {
-	for (GameObject *obj : objects)
-	{
-		delete obj;
-	}
-
 	objects.clear();
 };
 
 void ObjectManager::draw()
 {
-	for (GameObject *obj : objects)
+	for (auto&& object : objects)
 	{
-		if (obj->active)
+		if (object->active)
 		{
-			obj->draw();
+			object->draw();
 		}
 	}
 };
 
 void ObjectManager::update()
 {
-	for (GameObject *obj : objects)
+	for (auto&& object : objects)
 	{
-		if (obj->active)
+		if (object->active)
 		{
-			obj->update();
+			object->update();
 		}
 	}
 };
 
-GameObject *ObjectManager::addObj(GameObject *obj)
+void ObjectManager::addObj(GameObject* obj)
 {
-	objects.emplace_back(obj);
-	return obj;
+	std::unique_ptr<GameObject> newObj;
+	newObj.reset(obj);
+	objects.push_back(std::move(newObj));
 }

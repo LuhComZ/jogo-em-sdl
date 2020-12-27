@@ -34,7 +34,7 @@ void Sprite::draw(int x, int y)
 	currentFrame++;
 }
 
-void Sprite::changeAnimation(Animations animation)
+void Sprite::changeAnimation(Animation animation)
 {
 	currentAnim = animation;
 }

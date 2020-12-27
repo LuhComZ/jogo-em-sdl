@@ -24,18 +24,18 @@ void Map::draw()
 		{
 			Vector2D tile = map[row][column];
 
-			src.x = tile.x * 64;
-			src.y = tile.y * 64;
+			src.x = tile.x * 32;
+			src.y = tile.y * 32;
 			src.h = 64;
 			src.w = 64;
 
-			dest.x = 800 /25 * row;
-			dest.y = 640 /25 * column;
+			dest.x = 800 / 25 * row;
+			dest.y = 640 / 20 * column;
 
 			dest.w = 64;
 			dest.h = 64;
 
-			std::cout << SDL_RenderCopy(Game::renderer, texture, &src, &dest) << std::endl;
+			SDL_RenderCopy(Game::renderer, texture, &src, &dest);
 		}
 	}
 }

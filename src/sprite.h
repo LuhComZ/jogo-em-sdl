@@ -1,6 +1,6 @@
 #include "game.h"
 
-enum Animations
+enum Animation
 {
 	IDLE = 0,
 };
@@ -12,7 +12,7 @@ public:
 	~Sprite();
 
 	void draw(int x, int y);
-	void changeAnimation(Animations animation);
+	void changeAnimation(Animation animation);
 
 private:
 	SDL_Texture *texture;

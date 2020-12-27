@@ -1,4 +1,5 @@
 #include <vector>
+#include <memory>
 class GameObject;
 
 class ObjectManager
@@ -10,8 +11,8 @@ public:
 	void draw();
 	void update();
 
-	GameObject *addObj(GameObject *obj);
+	void addObj(GameObject* obj);
 
 private:
-	std::vector<GameObject *> objects;
+	std::vector<std::unique_ptr<GameObject>> objects;
 };

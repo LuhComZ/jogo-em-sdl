@@ -1,10 +1,26 @@
 #include "GameObject.h"
 #include "game.h"
 #include "map.h"
+#include "Scene.h"
 
 int wa, ha;
-GameObject *obj;
+Scene* scene;
 SDL_Renderer *Game::renderer = nullptr;
+
+void drawGrid(SDL_Window* window)
+{
+	SDL_GetWindowSize(window, &wa, &ha);
+	SDL_SetRenderDrawColor(Game::renderer, 0x00, 0x00, 0x00, 1);
+	for (int w0 = 0; w0 <= wa / 64; w0++)
+	{
+		SDL_RenderDrawLine(Game::renderer, w0 * 64, 0, w0 * 64, ha);
+	}
+	for (int h0 = 0; h0 <= ha / 64; h0++)
+	{
+		SDL_RenderDrawLine(Game::renderer, 0, h0 * 64, wa, h0 * 64);
+	}
+	SDL_SetRenderDrawColor(Game::renderer, 0xFF, 0xFF, 0xFF, 1);
+}
 
 Game::Game(const char *title, int x, int y, int w, int h, bool fullscreen)
 {
@@ -21,7 +37,7 @@ Game::Game(const char *title, int x, int y, int w, int h, bool fullscreen)
 				IMG_Init(IMG_INIT_PNG);
 				SDL_SetRenderDrawColor(Game::renderer, 0xFF, 0xFF, 0xFF, 1);
 				running = true;
-				obj = new GameObject("../assets/g.png");
+				scene = new Scene();
 			};
 		};
 	}
@@ -33,7 +49,7 @@ Game::~Game()
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 	IMG_Quit();
-	delete obj;
+	delete scene;
 };
 
 bool Game::isRunning() const
@@ -43,7 +59,7 @@ bool Game::isRunning() const
 
 void Game::update()
 {
-	obj->update();
+	scene->update();
 	// discord->update();
 };
 
@@ -56,56 +72,8 @@ void Game::handleEvents()
 	case SDL_QUIT:
 		running = false;
 		break;
-	case SDL_KEYDOWN:
-		switch (event.key.keysym.sym)
-		{
-		case SDLK_d:
-			obj->getSpeed()->x = 1;
-			break;
-		case SDLK_a:
-			obj->getSpeed()->x = -1;
-			break;
-		case SDLK_w:
-			obj->getSpeed()->y = -1;
-			break;
-		case SDLK_s:
-			obj->getSpeed()->y = 1;
-			break;
-		}
-		break;
-	case SDL_KEYUP:
-		switch (event.key.keysym.sym)
-		{
-		case SDLK_a:
-			obj->getSpeed()->x = 0;
-			if (obj->getPos()->x % 64 != 0)
-			{
-				obj->getPos()->x -= obj->getPos()->x % 64;
-			}
-			break;
-		case SDLK_d:
-			obj->getSpeed()->x = 0;
-			if (obj->getPos()->x % 64 != 0)
-			{
-				obj->getPos()->x += 64 - obj->getPos()->x % 64;
-			}
-			break;
-		case SDLK_w:
-			obj->getSpeed()->y = 0;
-			if (obj->getPos()->y % 64 != 0)
-			{
-				obj->getPos()->y -= obj->getPos()->y % 64;
-			}
-			break;
-		case SDLK_s:
-			obj->getSpeed()->y = 0;
-			if (obj->getPos()->y % 64 != 0)
-			{
-				obj->getPos()->y += 64 - obj->getPos()->y % 64;
-			}
-			break;
-		}
 	default:
+		scene->handleEvents(event);
 		break;
 	}
 }
@@ -113,18 +81,7 @@ void Game::handleEvents()
 void Game::draw()
 {
 	SDL_RenderClear(Game::renderer);
-	// map->draw();
-	obj->draw();
-	SDL_GetWindowSize(window, &wa, &ha);
-	SDL_SetRenderDrawColor(Game::renderer, 0x00, 0x00, 0x00, 1);
-	for (int w0 = 0; w0 <= wa / 64; w0++)
-	{
-		SDL_RenderDrawLine(Game::renderer, w0 * 64, 0, w0 * 64, ha);
-	}
-	for (int h0 = 0; h0 <= ha / 64; h0++)
-	{
-		SDL_RenderDrawLine(Game::renderer, 0, h0 * 64, wa, h0 * 64);
-	}
-	SDL_SetRenderDrawColor(Game::renderer, 0xFF, 0xFF, 0xFF, 1);
+	scene->draw();
+	drawGrid(window);
 	SDL_RenderPresent(Game::renderer);
 };
